@@ -14,11 +14,14 @@
 
 ```bash
 # Клонирование репозитория
-git clone <repository-url>
+git clone https://github.com/Dinar2806/lab4_python.git
 cd library_simulation
 
-# Установка в режиме разработки
-pip install -e .
+pip install -r requirements.txt
+```
 
-# Или установка зависимостей для разработки
-pip install -e ".[dev]"
+## Запуск
+
+```bash
+python -m src.library_sim.main
+```
