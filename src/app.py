@@ -56,7 +56,7 @@ def example_simulation():
     print("="*60)
     
     # Детерминированная симуляция
-    run_simulation(steps=10, seed=42)
+    run_simulation(seed=42)
     
     print("\n" + "="*60)
     print("СЛУЧАЙНАЯ СИМУЛЯЦИЯ")
@@ -66,3 +66,37 @@ def example_simulation():
     run_simulation(steps=5)
 
 
+
+def start_simulation(steps: int = 20, seed: int | None = None):
+    """Запуск симуляции"""
+    print("\n" + "="*60)
+    print("ЗАПУСК СИМУЛЯЦИИ")
+    print("="*60)
+    
+    run_simulation(steps=steps, seed=seed)
+    
+
+def app():
+    print("Выберите тип симуляции библиотеки")
+    print("="*60)
+    print("1. Базовый пример использования\n" \
+    "2. Пример симуляции\n" \
+    "3. Симуляция с входными данными\n")
+
+    type = input("Тип симуляции: ")
+
+    match type:
+        case "1":
+            example_basic_usage()
+
+        case "2":
+            example_simulation()
+
+        case "3":
+            print("Введите входные данные: ")
+            steps = int(input("Количество шагов симуляции: "))
+            print("\n")
+            seed = int(input("Сид: "))
+            print("\n")  
+
+            run_simulation(steps=steps, seed=seed)

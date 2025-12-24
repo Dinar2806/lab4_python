@@ -9,7 +9,7 @@ from .my_collections import BookCollection, IndexDict
 class Library:
     """
     Основной класс библиотеки
-    Объединяет пользовательские коллекции и бизнес-логику
+    Объединяет пользовательские коллекции и логику
     """
     
     def __init__(self, name: str = "Главная библиотека"):
@@ -26,7 +26,9 @@ class Library:
         return f"Library(name='{self.name}', books={len(self.books)})"
     
     def _create_initial_books(self) -> None:
-        """Создание начального набора книг"""
+        """
+        Создание начального набора книг
+        """
         initial_books = [
             Book("Война и мир", "Лев Толстой", 1869, "Роман", "978-5-389-07435-1"),
             Book("Преступление и наказание", "Федор Достоевский", 1866, "Роман", "978-5-17-090665-5"),
@@ -42,7 +44,9 @@ class Library:
             self.add_book(book, silent=True)
     
     def add_book(self, book: Book, silent: bool = False) -> bool:
-        """Добавить книгу в библиотеку"""
+        """
+        Добавить книгу в библиотеку
+        """
         if book.isbn in self.indexes:
             if not silent:
                 print(f"Книга с ISBN {book.isbn} уже существует")
@@ -52,12 +56,14 @@ class Library:
         self.indexes.add_book(book)
         
         if not silent:
-            print(f"✅ Добавлена книга: {book.title}")
+            print(f"Добавлена книга: {book.title}")
         
         return True
     
     def remove_book(self, isbn: str) -> bool:
-        """Удалить книгу по ISBN"""
+        """
+        Удалить книгу по ISBN
+        """
         book = self.indexes.get_book_by_isbn(isbn)
         if not book:
             print(f"Книга с ISBN {isbn} не найдена")
@@ -66,35 +72,38 @@ class Library:
         self.books.remove(book)
         self.indexes.remove_book(book)
         
-        print(f"❌ Удалена книга: {book.title}")
+        print(f"Удалена книга: {book.title}")
         return True
     
     def borrow_book(self, isbn: str) -> bool:
         """Выдать книгу"""
         book = self.indexes.get_book_by_isbn(isbn)
+
         if not book:
             print(f"Книга с ISBN {isbn} не найдена")
             return False
         
         if book.borrow():
-            print(f"📖 Выдана книга: {book.title}")
+            print(f"Выдана книга: {book.title}")
             return True
         else:
-            print(f"⚠️ Книга '{book.title}' уже выдана")
+            print(f"Книга '{book.title}' уже выдана")
             return False
     
     def return_book(self, isbn: str) -> bool:
-        """Вернуть книгу"""
+        """
+        Вернуть книгу
+        """
         book = self.indexes.get_book_by_isbn(isbn)
         if not book:
             print(f"Книга с ISBN {isbn} не найдена")
             return False
         
         if book.return_book():
-            print(f"📗 Возвращена книга: {book.title}")
+            print(f"Возвращена книга: {book.title}")
             return True
         else:
-            print(f"⚠️ Книга '{book.title}' не была выдана")
+            print(f"Книга '{book.title}' не была выдана")
             return False
     
     def search_books(self, author: str = None, year: int = None, genre: str = None) -> BookCollection:

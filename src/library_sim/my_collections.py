@@ -4,6 +4,8 @@
 from typing import List, Dict, Any, Union, Optional
 from collections import defaultdict
 
+from src.library_sim.book import Book
+
 
 class BookCollection:
     """
@@ -15,25 +17,20 @@ class BookCollection:
         self._books = books if books else []
     
     def __len__(self) -> int:
-        """Количество книг в коллекции"""
         return len(self._books)
     
     def __getitem__(self, index: Union[int, slice]) -> Union['Book', 'BookCollection']:
-        """Доступ по индексу или срезу"""
         if isinstance(index, slice):
             return BookCollection(self._books[index])
         return self._books[index]
     
     def __iter__(self):
-        """Итерация по книгам"""
         return iter(self._books)
     
     def __repr__(self) -> str:
-        """Строковое представление"""
         return f"BookCollection({len(self)} книг)"
     
     def __contains__(self, book: 'Book') -> bool:
-        """Проверка наличия книги"""
         return book in self._books
     
     def add(self, book: 'Book') -> None:

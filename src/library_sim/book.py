@@ -2,6 +2,7 @@
 Класс Book и связанные компоненты
 """
 from typing import Dict, Optional
+import random
 
 
 class Book:
@@ -16,36 +17,48 @@ class Book:
         self._is_borrowed = False
     
     def __repr__(self) -> str:
-        """Строковое представление книги"""
+        """
+        Строковое представление книги
+        """
         status = "выдана" if self._is_borrowed else "в наличии"
         return f"Книга('{self.title}', {self.author}, {self.year}, {self.genre}, ISBN: {self.isbn}, статус: {status})"
     
     def __contains__(self, keyword: str) -> bool:
-        """Магический метод для поиска по ключевому слову"""
+        """
+        Магический метод для поиска по ключевому слову (название, автор, жанр, год выпуска)
+        """
         return (keyword.lower() in self.title.lower() or 
                 keyword.lower() in self.author.lower() or 
                 keyword.lower() in self.genre.lower() or
                 keyword.lower() in str(self.year))
     
     def __eq__(self, other: object) -> bool:
-        """Сравнение книг по ISBN"""
+        """
+        Сравнение книг по isbn
+        """
         if not isinstance(other, Book):
             return False
         return self.isbn == other.isbn
     
     def __hash__(self) -> int:
-        """Хэш для использования в словарях"""
+        """
+        Хэш для использования в словарях
+        """
         return hash(self.isbn)
     
     def borrow(self) -> bool:
-        """Выдать книгу"""
+        """
+        Выдать книгу
+        """
         if not self._is_borrowed:
             self._is_borrowed = True
             return True
         return False
     
     def return_book(self) -> bool:
-        """Вернуть книгу"""
+        """
+        Вернуть книгу
+        """
         if self._is_borrowed:
             self._is_borrowed = False
             return True
@@ -53,11 +66,15 @@ class Book:
     
     @property
     def is_available(self) -> bool:
-        """Проверка доступности книги"""
+        """
+        Проверка доступности книги
+        """
         return not self._is_borrowed
     
     def to_dict(self) -> Dict:
-        """Конвертация в словарь для сохранения"""
+        """
+        Конвертация в словарь для сохранения
+        """
         return {
             'title': self.title,
             'author': self.author,
@@ -69,7 +86,9 @@ class Book:
     
     @classmethod
     def from_dict(cls, data: Dict) -> 'Book':
-        """Создание объекта из словаря"""
+        """
+        Создание объекта из словаря
+        """
         book = cls(
             title=data['title'],
             author=data['author'],
