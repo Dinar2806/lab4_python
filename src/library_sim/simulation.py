@@ -53,6 +53,8 @@ def run_simulation(steps: int = 20, seed: Optional[int] = None) -> None:
     print("\n" + "="*60)
     print("НАЧАЛО СИМУЛЯЦИИ БИБЛИОТЕКИ")
     print("="*60)
+
+    print(library.books.get_available_books())
     
     for step in range(1, steps + 1):
         
